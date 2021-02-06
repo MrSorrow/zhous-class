@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="si.qi.clazz.dao.NotifyDao">
+
+    <resultMap type="si.qi.clazz.entity.Notify" id="NotifyMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="INTEGER"/>
+        <result property="authorId" column="author_id" jdbcType="INTEGER"/>
+        <result property="classIds" column="class_ids" jdbcType="VARCHAR"/>
+        <result property="ext" column="ext" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="NotifyMap">
+        select
+          id, type, title, content, time, author_id, class_ids, ext, create_time, update_time
+        from ms_zhou.notify
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="NotifyMap">
+        select
+          id, type, title, content, time, author_id, class_ids, ext, create_time, update_time
+        from ms_zhou.notify
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="NotifyMap">
+        select
+        id, type, title, content, time, author_id, class_ids, ext, create_time, update_time
+        from ms_zhou.notify
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="time != null">
+                and time = #{time}
+            </if>
+            <if test="authorId != null">
+                and author_id = #{authorId}
+            </if>
+            <if test="classIds != null and classIds != ''">
+                and class_ids = #{classIds}
+            </if>
+            <if test="ext != null and ext != ''">
+                and ext = #{ext}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.notify(type, title, content, time, author_id, class_ids, ext, create_time, update_time)
+        values (#{type}, #{title}, #{content}, #{time}, #{authorId}, #{classIds}, #{ext}, #{createTime}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.notify(type, title, content, time, author_id, class_ids, ext, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.type}, #{entity.title}, #{entity.content}, #{entity.time}, #{entity.authorId}, #{entity.classIds},
+            #{entity.ext}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.notify(type, title, content, time, author_id, class_ids, ext, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.type}, #{entity.title}, #{entity.content}, #{entity.time}, #{entity.authorId}, #{entity.classIds},
+            #{entity.ext}, #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        type = values(type) , title = values(title) , content = values(content) , time = values(time) , author_id =
+        values(author_id) , class_ids = values(class_ids) , ext = values(ext) , create_time = values(create_time) ,
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update ms_zhou.notify
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId},
+            </if>
+            <if test="classIds != null and classIds != ''">
+                class_ids = #{classIds},
+            </if>
+            <if test="ext != null and ext != ''">
+                ext = #{ext},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from ms_zhou.notify where id = #{id}
+    </delete>
+
+</mapper>

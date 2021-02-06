@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="si.qi.clazz.dao.ClazzDao">
+
+    <resultMap type="si.qi.clazz.entity.Clazz" id="ClazzMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="schoolName" column="school_name" jdbcType="VARCHAR"/>
+        <result property="grade" column="grade" jdbcType="INTEGER"/>
+        <result property="classNumber" column="class_number" jdbcType="INTEGER"/>
+        <result property="ext" column="ext" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ClazzMap">
+        select
+          id, school_name, grade, class_number, ext, create_time, update_time
+        from ms_zhou.clazz
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ClazzMap">
+        select
+          id, school_name, grade, class_number, ext, create_time, update_time
+        from ms_zhou.clazz
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ClazzMap">
+        select
+        id, school_name, grade, class_number, ext, create_time, update_time
+        from ms_zhou.clazz
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="schoolName != null and schoolName != ''">
+                and school_name = #{schoolName}
+            </if>
+            <if test="grade != null">
+                and grade = #{grade}
+            </if>
+            <if test="classNumber != null">
+                and class_number = #{classNumber}
+            </if>
+            <if test="ext != null and ext != ''">
+                and ext = #{ext}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.clazz(school_name, grade, class_number, ext, create_time, update_time)
+        values (#{schoolName}, #{grade}, #{classNumber}, #{ext}, #{createTime}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.clazz(school_name, grade, class_number, ext, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.schoolName}, #{entity.grade}, #{entity.classNumber}, #{entity.ext}, #{entity.createTime},
+            #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.clazz(school_name, grade, class_number, ext, create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.schoolName}, #{entity.grade}, #{entity.classNumber}, #{entity.ext}, #{entity.createTime},
+            #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        school_name = values(school_name) , grade = values(grade) , class_number = values(class_number) , ext =
+        values(ext) , create_time = values(create_time) , update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update ms_zhou.clazz
+        <set>
+            <if test="schoolName != null and schoolName != ''">
+                school_name = #{schoolName},
+            </if>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="classNumber != null">
+                class_number = #{classNumber},
+            </if>
+            <if test="ext != null and ext != ''">
+                ext = #{ext},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from ms_zhou.clazz where id = #{id}
+    </delete>
+
+</mapper>

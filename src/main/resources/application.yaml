@@ -1,0 +1,18 @@
+spring:
+  banner:
+    image:
+      location: classpath:banner.txt
+  datasource:
+    url: jdbc:mysql://localhost:3306/ms_zhou?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: si.qi.clazz.entity
+
+server:
+  port: 8080
+  servlet:
+    context-path: /zhou-class
