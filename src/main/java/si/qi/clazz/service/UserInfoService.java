@@ -13,21 +13,21 @@ import java.util.List;
 public interface UserInfoService {
 
     /**
-     * 通过ID查询单条数据
+     * 通过UID查询单条数据
      *
-     * @param id 主键
+     * @param uid
      * @return 实例对象
      */
-    UserInfo queryById(Long id);
+    UserInfo queryByUid(Long uid);
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param page 查询起始位置
+     * @param size  查询条数
      * @return 对象列表
      */
-    List<UserInfo> queryAllByLimit(int offset, int limit);
+    List<UserInfo> queryAllByLimit(int page, int size);
 
     /**
      * 新增数据

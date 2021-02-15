@@ -19,11 +19,11 @@
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="UserInfoMap">
+    <select id="queryByUid" resultMap="UserInfoMap">
         select
           id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
         from ms_zhou.user_info
-        where id = #{id}
+        where uid = #{uid}
     </select>
 
     <!--查询指定行数据-->

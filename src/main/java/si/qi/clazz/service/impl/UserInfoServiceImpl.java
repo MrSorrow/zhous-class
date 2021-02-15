@@ -20,26 +20,26 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoDao userInfoDao;
 
     /**
-     * 通过ID查询单条数据
+     * 通过UID查询单条数据
      *
-     * @param id 主键
+     * @param uid 主键
      * @return 实例对象
      */
     @Override
-    public UserInfo queryById(Long id) {
-        return this.userInfoDao.queryById(id);
+    public UserInfo queryByUid(Long uid) {
+        return this.userInfoDao.queryByUid(uid);
     }
 
     /**
      * 查询多条数据
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
+     * @param page 页数
+     * @param size  条数
      * @return 对象列表
      */
     @Override
-    public List<UserInfo> queryAllByLimit(int offset, int limit) {
-        return this.userInfoDao.queryAllByLimit(offset, limit);
+    public List<UserInfo> queryAllByLimit(int page, int size) {
+        return this.userInfoDao.queryAllByLimit(page * size, size);
     }
 
     /**
@@ -63,7 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo update(UserInfo userInfo) {
         this.userInfoDao.update(userInfo);
-        return this.queryById(userInfo.getId());
+        return this.queryByUid(userInfo.getUid());
     }
 
     /**
