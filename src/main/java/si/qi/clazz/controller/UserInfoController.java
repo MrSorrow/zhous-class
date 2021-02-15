@@ -5,13 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import si.qi.clazz.common.BaseResponse;
-import si.qi.clazz.common.BizErrorCodeEnum;
-import si.qi.clazz.common.BizException;
 import si.qi.clazz.common.PageResult;
 import si.qi.clazz.entity.UserInfo;
-import si.qi.clazz.model.request.UserPageRequest;
-import si.qi.clazz.model.request.UserRequest;
+import si.qi.clazz.model.request.*;
+import si.qi.clazz.model.response.*;
 import si.qi.clazz.service.UserInfoService;
 
 import javax.validation.Valid;
@@ -29,20 +26,28 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @PostMapping("uid")
-    public UserInfo queryByUid(@RequestBody @Valid UserRequest request) {
+    public UserResponse queryByUid(@RequestBody @Valid UserRequest request) {
         return userInfoService.queryByUid(request.getUid());
     }
 
     @PostMapping("all")
-    public PageResult<List<UserInfo>> queryAllUserByPage(@RequestBody @Valid UserPageRequest request) {
-        List<UserInfo> userInfos = userInfoService.queryAllByLimit(request.getPage(), request.getSize());
-        Integer total = 100;
-        return PageResult.<List<UserInfo>>builder()
-                .data(userInfos)
-                .page(request.getPage())
-                .size(request.getSize())
-                .total(total)
-                .build();
+    public UserPageResponse queryAllUserByPage(@RequestBody @Valid UserPageRequest request) {
+        return userInfoService.queryAllByLimit(request.getPage(), request.getSize());
+    }
+
+    @PostMapping("add")
+    public UserAddResponse addUser(@RequestBody @Valid UserAddRequest request) {
+        return userInfoService.insert(request);
+    }
+
+    @PostMapping("update")
+    public UserUpdateResponse updateUser(@RequestBody @Valid UserUpdateRequest request) {
+        return userInfoService.update(request);
+    }
+
+    @PostMapping("delete")
+    public UserDeleteResponse deleteUser(@RequestBody @Valid UserDeleteRequest request) {
+        return userInfoService.deleteByUid(request);
     }
 
 }

@@ -1,6 +1,11 @@
 package si.qi.clazz.service;
 
+import si.qi.clazz.common.PageResult;
 import si.qi.clazz.entity.UserInfo;
+import si.qi.clazz.model.request.UserAddRequest;
+import si.qi.clazz.model.request.UserDeleteRequest;
+import si.qi.clazz.model.request.UserUpdateRequest;
+import si.qi.clazz.model.response.*;
 
 import java.util.List;
 
@@ -18,7 +23,7 @@ public interface UserInfoService {
      * @param uid
      * @return 实例对象
      */
-    UserInfo queryByUid(Long uid);
+    UserResponse queryByUid(Long uid);
 
     /**
      * 查询多条数据
@@ -27,30 +32,20 @@ public interface UserInfoService {
      * @param size  查询条数
      * @return 对象列表
      */
-    List<UserInfo> queryAllByLimit(int page, int size);
+    UserPageResponse queryAllByLimit(int page, int size);
 
     /**
      * 新增数据
-     *
-     * @param userInfo 实例对象
-     * @return 实例对象
      */
-    UserInfo insert(UserInfo userInfo);
+    UserAddResponse insert(UserAddRequest request);
 
     /**
      * 修改数据
-     *
-     * @param userInfo 实例对象
-     * @return 实例对象
      */
-    UserInfo update(UserInfo userInfo);
+    UserUpdateResponse update(UserUpdateRequest request);
 
     /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
+     * 通过uid删除数据
      */
-    boolean deleteById(Long id);
-
+    UserDeleteResponse deleteByUid(UserDeleteRequest request);
 }

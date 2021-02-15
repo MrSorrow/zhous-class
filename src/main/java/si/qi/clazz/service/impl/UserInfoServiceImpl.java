@@ -1,8 +1,18 @@
 package si.qi.clazz.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.json.JSONUtil;
+import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import si.qi.clazz.common.PageResult;
+import si.qi.clazz.common.enums.ConsoleRoleEnum;
 import si.qi.clazz.dao.UserInfoDao;
 import si.qi.clazz.entity.UserInfo;
+import si.qi.clazz.model.request.UserAddRequest;
+import si.qi.clazz.model.request.UserDeleteRequest;
+import si.qi.clazz.model.request.UserUpdateRequest;
+import si.qi.clazz.model.response.*;
 import si.qi.clazz.service.UserInfoService;
 
 import javax.annotation.Resource;
@@ -26,54 +36,81 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @return 实例对象
      */
     @Override
-    public UserInfo queryByUid(Long uid) {
-        return this.userInfoDao.queryByUid(uid);
+    public UserResponse queryByUid(Long uid) {
+        UserResponse response = new UserResponse();
+        UserInfo userInfo = userInfoDao.queryByUid(uid);
+        response.setUserInfo(userInfo);
+        return response;
     }
 
     /**
      * 查询多条数据
      *
      * @param page 页数
-     * @param size  条数
+     * @param size 条数
      * @return 对象列表
      */
     @Override
-    public List<UserInfo> queryAllByLimit(int page, int size) {
-        return this.userInfoDao.queryAllByLimit(page * size, size);
+    public UserPageResponse queryAllByLimit(int page, int size) {
+        UserPageResponse response = new UserPageResponse();
+
+        List<UserInfo> userInfos = userInfoDao.queryAllByLimit(page * size, size);
+        Integer total = 100;
+
+        PageResult<List<UserInfo>> pageResult = PageResult.<List<UserInfo>>builder()
+                .data(userInfos)
+                .page(page)
+                .size(size)
+                .total(total)
+                .build();
+
+        response.setUserInfos(pageResult);
+        return response;
     }
 
-    /**
-     * 新增数据
-     *
-     * @param userInfo 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UserInfo insert(UserInfo userInfo) {
-        this.userInfoDao.insert(userInfo);
-        return userInfo;
+    public UserAddResponse insert(UserAddRequest request) {
+        UserAddResponse response = new UserAddResponse();
+
+        UserInfo userInfo = new UserInfo();
+        // TODO：
+        userInfo.setUid(RandomUtil.randomLong());
+        userInfo.setClasses(JSONUtil.toJsonStr(Lists.newArrayList(request.getClasses())));
+        userInfo.setPhone(request.getPhone());
+        userInfo.setPassword(request.getPassword());
+        userInfo.setNickName(request.getNickName());
+        userInfo.setRole(ConsoleRoleEnum.VISITOR.getCode());
+        userInfoDao.insert(userInfo);
+
+        response.setUserInfo(userInfo);
+        return response;
     }
 
-    /**
-     * 修改数据
-     *
-     * @param userInfo 实例对象
-     * @return 实例对象
-     */
     @Override
-    public UserInfo update(UserInfo userInfo) {
-        this.userInfoDao.update(userInfo);
-        return this.queryByUid(userInfo.getUid());
+    public UserUpdateResponse update(UserUpdateRequest request) {
+        UserUpdateResponse response = new UserUpdateResponse();
+
+        UserInfo userInfo = new UserInfo();
+        // TODO：
+        userInfo.setUid(request.getUid());
+        userInfo.setClasses(JSONUtil.toJsonStr(Lists.newArrayList(request.getClasses())));
+        userInfo.setPhone(request.getPhone());
+        userInfo.setPassword(request.getPassword());
+        userInfo.setNickName(request.getNickName());
+        userInfo.setRole(ConsoleRoleEnum.getByCode(request.getRole()).getCode());
+
+        userInfoDao.update(userInfo);
+
+        response.setUserInfo(userInfo);
+        return response;
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
     @Override
-    public boolean deleteById(Long id) {
-        return this.userInfoDao.deleteById(id) > 0;
+    public UserDeleteResponse deleteByUid(UserDeleteRequest request) {
+        UserDeleteResponse response = new UserDeleteResponse();
+
+        response.setSuccess(userInfoDao.deleteByUid(request.getUid()) > 0);
+
+        return response;
     }
 }

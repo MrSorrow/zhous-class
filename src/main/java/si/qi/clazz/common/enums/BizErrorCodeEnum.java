@@ -1,4 +1,4 @@
-package si.qi.clazz.common;
+package si.qi.clazz.common.enums;
 
 /**
  * @description:

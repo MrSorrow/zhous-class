@@ -74,9 +74,9 @@ public interface UserInfoDao {
     /**
      * 通过主键删除数据
      *
-     * @param id 主键
+     * @param uid 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteByUid(Long uid);
 
 }

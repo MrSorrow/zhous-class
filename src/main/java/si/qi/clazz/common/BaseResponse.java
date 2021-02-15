@@ -2,6 +2,7 @@ package si.qi.clazz.common;
 
 import cn.hutool.core.date.DateUtil;
 import lombok.Getter;
+import si.qi.clazz.common.enums.BizErrorCodeEnum;
 
 /**
  * @author: bbgg
