@@ -31,8 +31,8 @@ public class UserInfoController {
     }
 
     @PostMapping("all")
-    public UserPageResponse queryAllUserByPage(@RequestBody @Valid UserPageRequest request) {
-        return userInfoService.queryAllByLimit(request.getPage(), request.getSize());
+    public PageResult queryAllUserByPage(@RequestBody @Valid UserPageRequest request) {
+        return userInfoService.queryAllByLimit(request.getPage(), request.getLimit()).getUserInfos();
     }
 
     @PostMapping("add")

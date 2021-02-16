@@ -54,7 +54,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserPageResponse queryAllByLimit(int page, int size) {
         UserPageResponse response = new UserPageResponse();
 
-        List<UserInfo> userInfos = userInfoDao.queryAllByLimit(page * size, size);
+        int offset = (page - 1) * size;
+        List<UserInfo> userInfos = userInfoDao.queryAllByLimit(offset, size);
         Integer total = 100;
 
         PageResult<List<UserInfo>> pageResult = PageResult.<List<UserInfo>>builder()

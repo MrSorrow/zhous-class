@@ -19,7 +19,7 @@ public class UserPageRequest {
     @NotNull(message = "page不能为空")
     @Min(value = 0, message = "page不能小于0")
     private Integer page;
-    @NotNull(message = "size不能为空")
-    @Min(value = 0, message = "size不能小于0")
-    private Integer size;
+    @NotNull(message = "limit不能为空")
+    @Min(value = 0, message = "limit不能小于0")
+    private Integer limit;
 }

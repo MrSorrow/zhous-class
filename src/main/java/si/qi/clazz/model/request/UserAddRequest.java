@@ -25,6 +25,4 @@ public class UserAddRequest {
     private String password;
     @NotNull(message = "所属班级不能为空")
     private List<Integer> classes;
-
-
 }
