@@ -1,8 +1,13 @@
 package si.qi.clazz.core.service;
 
-import si.qi.clazz.domain.db.model.ClazzDO;
-
-import java.util.List;
+import si.qi.clazz.core.request.ClazzAddRequest;
+import si.qi.clazz.core.request.ClazzDeleteRequest;
+import si.qi.clazz.core.request.ClazzQueryRequest;
+import si.qi.clazz.core.request.ClazzUpdateRequest;
+import si.qi.clazz.core.response.ClazzAddResponse;
+import si.qi.clazz.core.response.ClazzDeleteResponse;
+import si.qi.clazz.core.response.ClazzQueryResponse;
+import si.qi.clazz.core.response.ClazzUpdateResponse;
 
 /**
  * (Clazz)表服务接口
@@ -12,45 +17,11 @@ import java.util.List;
  */
 public interface ClazzService {
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    ClazzDO queryById(Long id);
+    ClazzQueryResponse queryByCondition(ClazzQueryRequest request);
 
-    /**
-     * 查询多条数据
-     *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
-     */
-    List<ClazzDO> queryAllByLimit(int offset, int limit);
+    ClazzAddResponse insert(ClazzAddRequest request);
 
-    /**
-     * 新增数据
-     *
-     * @param clazz 实例对象
-     * @return 实例对象
-     */
-    ClazzDO insert(ClazzDO clazz);
+    ClazzUpdateResponse update(ClazzUpdateRequest request);
 
-    /**
-     * 修改数据
-     *
-     * @param clazz 实例对象
-     * @return 实例对象
-     */
-    ClazzDO update(ClazzDO clazz);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Long id);
-
+    ClazzDeleteResponse deleteById(ClazzDeleteRequest request);
 }

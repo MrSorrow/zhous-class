@@ -1,37 +1,44 @@
 package si.qi.clazz.api.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import si.qi.clazz.core.request.*;
+import si.qi.clazz.core.response.*;
 import si.qi.clazz.core.service.ClazzService;
-import si.qi.clazz.domain.db.model.ClazzDO;
 
-import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
- * (Clazz)表控制层
- *
- * @author makejava
- * @since 2021-02-07 00:22:54
+ * @author bbgg
+ * @since 2021-02-07 00:23:51
  */
 @RestController
-@RequestMapping("clazz")
+@RequestMapping("/console/api/class/")
 public class ClazzController {
-    /**
-     * 服务对象
-     */
-    @Resource
+
+    @Autowired
     private ClazzService clazzService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public ClazzDO selectOne(Long id) {
-        return this.clazzService.queryById(id);
+    @PostMapping("all")
+    public ClazzQueryResponse queryByCondition(@RequestBody @Valid ClazzQueryRequest request) {
+        return clazzService.queryByCondition(request);
     }
 
+    @PostMapping("add")
+    public ClazzAddResponse addClazz(@RequestBody @Valid ClazzAddRequest request) {
+        return clazzService.insert(request);
+    }
+
+    @PostMapping("update")
+    public ClazzUpdateResponse updateUser(@RequestBody @Valid ClazzUpdateRequest request) {
+        return clazzService.update(request);
+    }
+
+    @PostMapping("delete")
+    public ClazzDeleteResponse deleteUser(@RequestBody @Valid ClazzDeleteRequest request) {
+        return clazzService.deleteById(request);
+    }
 }
