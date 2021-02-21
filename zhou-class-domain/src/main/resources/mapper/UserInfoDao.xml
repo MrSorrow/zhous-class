@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="si.qi.clazz.repo.db.UserInfoDao">
+
+    <resultMap type="si.qi.clazz.domain.db.model.UserInfoDO" id="UserInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="openid" column="openid" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="wechatName" column="wechat_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="role" column="role" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="classes" column="classes" jdbcType="VARCHAR"/>
+        <result property="ext" column="ext" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByUid" resultMap="UserInfoMap">
+        select
+          id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
+        from ms_zhou.user_info
+        where uid = #{uid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserInfoMap">
+        select
+          id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
+        from ms_zhou.user_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserInfoMap">
+        select
+        id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
+        from ms_zhou.user_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="openid != null and openid != ''">
+                and openid = #{openid}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="wechatName != null and wechatName != ''">
+                and wechat_name = #{wechatName}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="role != null">
+                and role = #{role}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="classes != null and classes != ''">
+                and classes = #{classes}
+            </if>
+            <if test="ext != null and ext != ''">
+                and ext = #{ext}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into ms_zhou.user_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uid != null" >
+                uid,
+            </if>
+            <if test="openid != null" >
+                openid,
+            </if>
+            <if test="avatar != null" >
+                avatar,
+            </if>
+            <if test="wechatName != null" >
+                wechat_name,
+            </if>
+            <if test="nickName != null" >
+                nick_name,
+            </if>
+            <if test="role != null" >
+                role,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="classes != null" >
+                classes,
+            </if>
+            <if test="ext != null" >
+                ext,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uid != null" >
+                #{uid},
+            </if>
+            <if test="openid != null" >
+                #{openid},
+            </if>
+            <if test="avatar != null" >
+                #{avatar},
+            </if>
+            <if test="wechatName != null" >
+                #{wechatName},
+            </if>
+            <if test="nickName != null" >
+                #{nickName},
+            </if>
+            <if test="role != null" >
+                #{role},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="password != null" >
+                #{password},
+            </if>
+            <if test="classes != null" >
+                #{classes},
+            </if>
+            <if test="ext != null" >
+                #{ext},
+            </if>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update ms_zhou.user_info
+        <set>
+            <if test="openid != null and openid != ''">
+                openid = #{openid},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="wechatName != null and wechatName != ''">
+                wechat_name = #{wechatName},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="classes != null and classes != ''">
+                classes = #{classes},
+            </if>
+            <if test="ext != null and ext != ''">
+                ext = #{ext},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteByUid">
+        delete from ms_zhou.user_info where uid = #{uid}
+    </delete>
+
+</mapper>
