@@ -31,7 +31,7 @@ public class ClazzServiceImpl implements ClazzService {
     public ClazzQueryResponse queryByCondition(ClazzQueryRequest request) {
         ClazzQueryResponse response = new ClazzQueryResponse();
 
-        List<ClazzDO> clazzList = clazzDao.queryAllByLimit(request.getId(), request.getSchoolName(),
+        List<ClazzDO> clazzList = clazzDao.queryByCondition(request.getId(), request.getSchoolName(),
                 request.getGrade(), request.getClassNumber(), request.getPage(), request.getLimit());
 
         // 转bo

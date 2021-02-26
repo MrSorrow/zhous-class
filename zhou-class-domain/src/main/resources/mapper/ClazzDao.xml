@@ -20,7 +20,7 @@
         where id = #{id}
     </select>
 
-    <select id="queryAllByLimit" resultMap="ClazzMap">
+    <select id="queryByCondition" resultMap="ClazzMap">
         select
         id, school_name, grade, class_number, ext, create_time, update_time
         from ms_zhou.clazz

@@ -33,12 +33,12 @@ public class ClazzController {
     }
 
     @PostMapping("update")
-    public ClazzUpdateResponse updateUser(@RequestBody @Valid ClazzUpdateRequest request) {
+    public ClazzUpdateResponse updateClazz(@RequestBody @Valid ClazzUpdateRequest request) {
         return clazzService.update(request);
     }
 
     @PostMapping("delete")
-    public ClazzDeleteResponse deleteUser(@RequestBody @Valid ClazzDeleteRequest request) {
+    public ClazzDeleteResponse deleteClazz(@RequestBody @Valid ClazzDeleteRequest request) {
         return clazzService.deleteById(request);
     }
 }
