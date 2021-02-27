@@ -2,25 +2,19 @@ package si.qi.clazz.core.service.impl;
 
 import cn.hutool.json.JSONUtil;
 import org.springframework.stereotype.Service;
-import si.qi.clazz.core.bo.ClazzBO;
 import si.qi.clazz.core.bo.NotifyBO;
-import si.qi.clazz.core.bo.convert.ClazzBoConverter;
 import si.qi.clazz.core.bo.convert.NotifyBoConverter;
 import si.qi.clazz.core.request.NotifyAddRequest;
 import si.qi.clazz.core.request.NotifyDeleteRequest;
 import si.qi.clazz.core.request.NotifyQueryRequest;
 import si.qi.clazz.core.request.NotifyUpdateRequest;
-import si.qi.clazz.core.response.ClazzAddResponse;
 import si.qi.clazz.core.response.NotifyAddResponse;
 import si.qi.clazz.core.response.NotifyDeleteResponse;
 import si.qi.clazz.core.response.NotifyQueryResponse;
 import si.qi.clazz.core.response.NotifyUpdateResponse;
 import si.qi.clazz.core.service.NotifyService;
-import si.qi.clazz.core.vo.ClazzVO;
 import si.qi.clazz.core.vo.NotifyVO;
-import si.qi.clazz.core.vo.convert.ClazzVoConverter;
 import si.qi.clazz.core.vo.convert.NotifyVoConverter;
-import si.qi.clazz.domain.db.model.ClazzDO;
 import si.qi.clazz.domain.db.model.NotifyDO;
 import si.qi.clazz.repo.db.NotifyDao;
 
@@ -83,7 +77,26 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Override
     public NotifyUpdateResponse update(NotifyUpdateRequest request) {
-        return null;
+        NotifyUpdateResponse response = new NotifyUpdateResponse();
+
+        NotifyBO notify = new NotifyBO();
+        notify.setId(request.getId());
+        notify.setType(request.getType());
+        notify.setTitle(request.getTitle());
+        notify.setContent(request.getContent());
+        notify.setAuthorId(request.getAuthorId());
+        notify.setClassIds(request.getClassIds());
+        notify.setTime(request.getTime());
+        notify.setExt(JSONUtil.toJsonStr(request.getExt()));
+
+        // 转do
+        NotifyDO notifyDO = NotifyBoConverter.INSTANCE.cvt2Do(notify);
+
+        notifyDao.update(notifyDO);
+
+        // 转vo
+        response.setNotifyInfo(NotifyVoConverter.INSTANCE.cvt2Vo(notify));
+        return response;
     }
 
     @Override

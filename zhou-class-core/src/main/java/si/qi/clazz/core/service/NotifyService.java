@@ -8,9 +8,6 @@ import si.qi.clazz.core.response.NotifyAddResponse;
 import si.qi.clazz.core.response.NotifyDeleteResponse;
 import si.qi.clazz.core.response.NotifyQueryResponse;
 import si.qi.clazz.core.response.NotifyUpdateResponse;
-import si.qi.clazz.domain.db.model.NotifyDO;
-
-import java.util.List;
 
 /**
  * @author makejava

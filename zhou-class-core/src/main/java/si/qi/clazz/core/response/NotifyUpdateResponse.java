@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import si.qi.clazz.common.response.BaseResponse;
-import si.qi.clazz.core.vo.ClazzVO;
+import si.qi.clazz.core.vo.NotifyVO;
 
 /**
  * @author: guoping
@@ -14,5 +14,5 @@ import si.qi.clazz.core.vo.ClazzVO;
 @Setter
 @ToString
 public class NotifyUpdateResponse extends BaseResponse {
-    private ClazzVO clazzInfo;
+    private NotifyVO notifyInfo;
 }

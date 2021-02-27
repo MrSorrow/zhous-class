@@ -1,29 +1,19 @@
 package si.qi.clazz.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import si.qi.clazz.core.request.ClazzAddRequest;
-import si.qi.clazz.core.request.ClazzDeleteRequest;
-import si.qi.clazz.core.request.ClazzQueryRequest;
-import si.qi.clazz.core.request.ClazzUpdateRequest;
 import si.qi.clazz.core.request.NotifyAddRequest;
 import si.qi.clazz.core.request.NotifyDeleteRequest;
 import si.qi.clazz.core.request.NotifyQueryRequest;
 import si.qi.clazz.core.request.NotifyUpdateRequest;
-import si.qi.clazz.core.response.ClazzAddResponse;
-import si.qi.clazz.core.response.ClazzDeleteResponse;
-import si.qi.clazz.core.response.ClazzQueryResponse;
-import si.qi.clazz.core.response.ClazzUpdateResponse;
 import si.qi.clazz.core.response.NotifyAddResponse;
 import si.qi.clazz.core.response.NotifyDeleteResponse;
 import si.qi.clazz.core.response.NotifyQueryResponse;
 import si.qi.clazz.core.response.NotifyUpdateResponse;
 import si.qi.clazz.core.service.NotifyService;
-import si.qi.clazz.domain.db.model.NotifyDO;
 
 import javax.validation.Valid;
 

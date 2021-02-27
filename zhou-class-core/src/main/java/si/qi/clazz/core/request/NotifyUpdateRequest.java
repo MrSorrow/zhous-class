@@ -16,14 +16,14 @@ import java.util.Map;
 @Setter
 @ToString
 public class NotifyUpdateRequest extends BaseRequest {
-    @NotNull(message = "clazz id不能为空")
+    @NotNull(message = "notify id不能为空")
     private Long id;
-    @NotNull(message = "学校名称不能为空")
-    private String schoolName;
-    @NotNull(message = "年级不能为空")
-    private Integer grade;
-    @NotNull(message = "班级不能为空")
-    private Integer classNumber;
+    private Integer type;
+    private String title;
+    private String content;
+    private Integer time;
+    private Long authorId;
+    private String classIds;
 
     private Map<String, Object> ext;
 }
