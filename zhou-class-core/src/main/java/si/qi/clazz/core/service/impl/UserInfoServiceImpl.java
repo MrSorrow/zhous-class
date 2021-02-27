@@ -9,6 +9,7 @@ import si.qi.clazz.core.bo.UserInfoBO;
 import si.qi.clazz.core.bo.convert.UserInfoBoConverter;
 import si.qi.clazz.core.request.UserAddRequest;
 import si.qi.clazz.core.request.UserDeleteRequest;
+import si.qi.clazz.core.request.UserQueryRequest;
 import si.qi.clazz.core.request.UserUpdateRequest;
 import si.qi.clazz.core.response.*;
 import si.qi.clazz.core.service.UserInfoService;
@@ -27,34 +28,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoDao userInfoDao;
 
     @Override
-    public UserQueryResponse queryByUid(Long uid) {
-        UserQueryResponse response = new UserQueryResponse();
-
-        // 校验参数
-
-        UserInfoDO userInfoDO = userInfoDao.queryByUid(uid);
-
-
-        // 转bo
-        UserInfoBO userInfoBO = UserInfoBoConverter.INSTANCE.cvt2Bo(userInfoDO);
-
-        // 业务处理
-
-        // 转vo
-        UserInfoVO userInfoVO = UserInfoVoConverter.INSTANCE.cvt2Vo(userInfoBO);
-
-
-        response.setUserInfos(Lists.newArrayList(userInfoVO));
-        return response;
-    }
-
-    @Override
-    public UserQueryResponse queryAllByCondition(long uid, int page, int limit) {
+    public UserQueryResponse queryByCondition(UserQueryRequest request) {
         UserQueryResponse response = new UserQueryResponse();
 
         // check查询参数
 
-        List<UserInfoDO> userInfos = userInfoDao.queryAllByLimit((page - 1) * limit, limit);
+        Integer page = request.getPage();
+        Integer limit = request.getLimit();
+        List<UserInfoDO> userInfos = userInfoDao.queryByCondition(request.getId(), request.getUid(),
+                request.getWechatName(), request.getNickName(), request.getPhone(), request.getRole(),
+                request.getClasses(), (page - 1) * limit, limit);
 
         // 转bo
         List<UserInfoBO> userInfoBOList = UserInfoBoConverter.INSTANCE.cvt2BoList(userInfos);

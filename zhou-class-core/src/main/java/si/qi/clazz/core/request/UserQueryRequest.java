@@ -17,5 +17,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @ToString
 public class UserQueryRequest extends BaseRequest {
+    private Long id;
     private Long uid;
+    private String wechatName;
+    private String nickName;
+    private Integer role;
+    private String phone;
+    private String classes;
 }

@@ -27,17 +27,9 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="UserInfoMap">
+    <select id="queryByCondition" resultMap="UserInfoMap">
         select
           id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
-        from ms_zhou.user_info
-        limit #{offset}, #{limit}
-    </select>
-
-    <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="UserInfoMap">
-        select
-        id, uid, openid, avatar, wechat_name, nick_name, role, phone, password, classes, ext, create_time, update_time
         from ms_zhou.user_info
         <where>
             <if test="id != null">
@@ -45,12 +37,6 @@
             </if>
             <if test="uid != null">
                 and uid = #{uid}
-            </if>
-            <if test="openid != null and openid != ''">
-                and openid = #{openid}
-            </if>
-            <if test="avatar != null and avatar != ''">
-                and avatar = #{avatar}
             </if>
             <if test="wechatName != null and wechatName != ''">
                 and wechat_name = #{wechatName}
@@ -64,22 +50,11 @@
             <if test="phone != null and phone != ''">
                 and phone = #{phone}
             </if>
-            <if test="password != null and password != ''">
-                and password = #{password}
-            </if>
             <if test="classes != null and classes != ''">
                 and classes = #{classes}
             </if>
-            <if test="ext != null and ext != ''">
-                and ext = #{ext}
-            </if>
-            <if test="createTime != null">
-                and create_time = #{createTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
         </where>
+        limit #{offset}, #{limit}
     </select>
 
     <!--新增所有列-->

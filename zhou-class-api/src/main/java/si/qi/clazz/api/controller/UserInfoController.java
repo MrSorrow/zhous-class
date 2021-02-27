@@ -25,14 +25,9 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @PostMapping("uid")
-    public UserQueryResponse queryByUid(@RequestBody @Valid UserQueryRequest request) {
-        return userInfoService.queryByUid(request.getUid());
-    }
-
     @PostMapping("all")
     public UserQueryResponse queryUserByCondition(@RequestBody @Valid UserQueryRequest request) {
-        return userInfoService.queryAllByCondition(request.getUid(), request.getPage(), request.getLimit());
+        return userInfoService.queryByCondition(request);
     }
 
     @PostMapping("add")
