@@ -15,7 +15,5 @@ repositories {
 dependencies {
     compile project(':zhou-class-core')
 
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
