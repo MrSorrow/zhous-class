@@ -17,7 +17,7 @@ public class BaseResponse {
 
     private Integer page;
     private Integer limit;
-    private Integer count;
+    private Long count;
 
     private Integer code;
     private String msg;
@@ -35,7 +35,7 @@ public class BaseResponse {
         return this;
     }
 
-    public BaseResponse buildPageSuccessRes(Integer page, Integer limit, Integer count) {
+    public BaseResponse buildPageSuccessRes(Integer page, Integer limit, Long count) {
         this.setPage(page);
         this.setLimit(limit);
         this.setCount(count);

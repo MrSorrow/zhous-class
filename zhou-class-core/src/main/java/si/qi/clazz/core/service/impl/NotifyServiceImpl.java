@@ -48,7 +48,7 @@ public class NotifyServiceImpl implements NotifyService {
         response.setNotifyList(notifyVOList);
 
         // 分页信息
-        response.buildPageSuccessRes(request.getPage(), request.getLimit(), 100);
+        response.buildPageSuccessRes(request.getPage(), request.getLimit(), 100L);
         return response;
     }
 

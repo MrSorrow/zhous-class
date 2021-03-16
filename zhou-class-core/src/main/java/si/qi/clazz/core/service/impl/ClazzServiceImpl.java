@@ -44,7 +44,7 @@ public class ClazzServiceImpl implements ClazzService {
         response.setClazzList(clazzVOList);
 
         // 分页信息
-        response.buildPageSuccessRes(request.getPage(), request.getLimit(), 100);
+        response.buildPageSuccessRes(request.getPage(), request.getLimit(), 100L);
         return response;
     }
 

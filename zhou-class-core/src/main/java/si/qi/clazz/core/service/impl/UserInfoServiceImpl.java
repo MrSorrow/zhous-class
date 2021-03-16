@@ -3,6 +3,8 @@ package si.qi.clazz.core.service.impl;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import si.qi.clazz.common.enums.ConsoleRoleEnum;
@@ -34,16 +36,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         // check查询参数
 
-        Integer page = request.getPage();
-        Integer limit = request.getLimit();
+        QueryWrapper<UserInfoDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(request.getId() != null, UserInfoDO::getId, request.getId())
+                .eq(request.getUid() != null, UserInfoDO::getUid, request.getUid())
+                .eq(request.getWechatName() != null, UserInfoDO::getWechatName, request.getWechatName())
+                .eq(request.getNickName() != null, UserInfoDO::getNickName, request.getNickName())
+                .eq(request.getPhone() != null, UserInfoDO::getPhone, request.getPhone())
+                .eq(request.getRole() != null, UserInfoDO::getRole, request.getRole())
+                .eq(request.getClasses() !=  null, UserInfoDO::getClasses, request.getClasses());
 
-        List<UserInfoDO> userInfos = userInfoDao.selectList(null);
-//        List<UserInfoDO> userInfos = userInfoDao.queryByCondition(request.getId(), request.getUid(),
-//                request.getWechatName(), request.getNickName(), request.getPhone(), request.getRole(),
-//                request.getClasses(), (page - 1) * limit, limit);
+        Page<UserInfoDO> page = new Page<>(request.getPage(), request.getLimit());
+        Page<UserInfoDO> userInfoPageResult = userInfoDao.selectPage(page, queryWrapper);
 
         // 转bo
-        List<UserInfoBO> userInfoBOList = UserInfoBoConverter.INSTANCE.cvt2BoList(userInfos);
+        List<UserInfoBO> userInfoBOList = UserInfoBoConverter.INSTANCE.cvt2BoList(userInfoPageResult.getRecords());
 
         // 业务逻辑
 
@@ -51,7 +58,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         List<UserInfoVO> userInfoVOList = UserInfoVoConverter.INSTANCE.cvt2VoList(userInfoBOList);
 
         response.setUserInfos(userInfoVOList);
-        response.buildPageSuccessRes(page, limit, 100);
+        response.buildPageSuccessRes(request.getPage(), request.getLimit(), userInfoPageResult.getTotal());
         return response;
     }
 
