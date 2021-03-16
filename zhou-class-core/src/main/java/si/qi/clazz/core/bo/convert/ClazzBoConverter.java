@@ -4,9 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import si.qi.clazz.core.bo.ClazzBO;
-import si.qi.clazz.core.bo.UserInfoBO;
 import si.qi.clazz.domain.db.model.ClazzDO;
-import si.qi.clazz.domain.db.model.UserInfoDO;
 
 import java.util.List;
 

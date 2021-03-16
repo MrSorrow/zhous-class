@@ -20,7 +20,9 @@ dependencies {
     compile project(":zhou-class-domain")
 
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+    compile 'com.baomidou:mybatis-plus-generator:3.4.1'
+    compile 'com.baomidou:mybatis-plus-boot-starter:3.4.2'
+    compile 'org.apache.velocity:velocity-engine-core:2.3'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

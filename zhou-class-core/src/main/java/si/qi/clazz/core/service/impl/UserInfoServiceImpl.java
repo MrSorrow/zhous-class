@@ -2,6 +2,7 @@ package si.qi.clazz.core.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import si.qi.clazz.common.enums.ConsoleRoleEnum;
@@ -35,9 +36,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         Integer page = request.getPage();
         Integer limit = request.getLimit();
-        List<UserInfoDO> userInfos = userInfoDao.queryByCondition(request.getId(), request.getUid(),
-                request.getWechatName(), request.getNickName(), request.getPhone(), request.getRole(),
-                request.getClasses(), (page - 1) * limit, limit);
+
+        List<UserInfoDO> userInfos = userInfoDao.selectList(null);
+//        List<UserInfoDO> userInfos = userInfoDao.queryByCondition(request.getId(), request.getUid(),
+//                request.getWechatName(), request.getNickName(), request.getPhone(), request.getRole(),
+//                request.getClasses(), (page - 1) * limit, limit);
 
         // 转bo
         List<UserInfoBO> userInfoBOList = UserInfoBoConverter.INSTANCE.cvt2BoList(userInfos);
@@ -87,7 +90,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setRole(ConsoleRoleEnum.getByCode(request.getRole()).getCode());
 
         // 转do
-        userInfoDao.update(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
+//        userInfoDao.update(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
 
         // 转vo
         response.setUserInfo(UserInfoVoConverter.INSTANCE.cvt2Vo(userInfo));
@@ -98,7 +101,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserDeleteResponse deleteByUid(UserDeleteRequest request) {
         UserDeleteResponse response = new UserDeleteResponse();
 
-        response.setSuccess(userInfoDao.deleteByUid(request.getUid()) > 0);
+//        response.setSuccess(userInfoDao.deleteByUid(request.getUid()) > 0);
 
         return response;
     }
