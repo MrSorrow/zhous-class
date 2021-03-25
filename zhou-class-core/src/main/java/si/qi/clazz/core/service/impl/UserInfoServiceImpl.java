@@ -3,7 +3,6 @@ package si.qi.clazz.core.service.impl;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import si.qi.clazz.core.service.UserInfoService;
 import si.qi.clazz.core.vo.UserInfoVO;
 import si.qi.clazz.core.vo.convert.UserInfoVoConverter;
 import si.qi.clazz.domain.db.model.UserInfoDO;
-import si.qi.clazz.repo.db.UserInfoDao;
+import si.qi.clazz.repo.db.UserInfoMapper;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,7 +27,7 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Resource
-    private UserInfoDao userInfoDao;
+    private UserInfoMapper userInfoMapper;
 
     @Override
     public UserQueryResponse queryByCondition(UserQueryRequest request) {
@@ -43,11 +42,11 @@ public class UserInfoServiceImpl implements UserInfoService {
                 .eq(request.getWechatName() != null, UserInfoDO::getWechatName, request.getWechatName())
                 .eq(request.getNickName() != null, UserInfoDO::getNickName, request.getNickName())
                 .eq(request.getPhone() != null, UserInfoDO::getPhone, request.getPhone())
-                .eq(request.getRole() != null, UserInfoDO::getRole, request.getRole())
+                .eq(request.getRoles() != null, UserInfoDO::getRoles, request.getRoles())
                 .eq(request.getClasses() !=  null, UserInfoDO::getClasses, request.getClasses());
 
         Page<UserInfoDO> page = new Page<>(request.getPage(), request.getLimit());
-        Page<UserInfoDO> userInfoPageResult = userInfoDao.selectPage(page, queryWrapper);
+        Page<UserInfoDO> userInfoPageResult = userInfoMapper.selectPage(page, queryWrapper);
 
         // 转bo
         List<UserInfoBO> userInfoBOList = UserInfoBoConverter.INSTANCE.cvt2BoList(userInfoPageResult.getRecords());
@@ -76,7 +75,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setRole(ConsoleRoleEnum.VISITOR.getCode());
 
         // 转do
-        userInfoDao.insert(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
+        userInfoMapper.insert(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
 
         // 转vo
         response.setUserInfo(UserInfoVoConverter.INSTANCE.cvt2Vo(userInfo));
@@ -97,7 +96,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setRole(ConsoleRoleEnum.getByCode(request.getRole()).getCode());
 
         // 转do
-//        userInfoDao.update(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
+//        userInfoMapper.update(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
 
         // 转vo
         response.setUserInfo(UserInfoVoConverter.INSTANCE.cvt2Vo(userInfo));
@@ -108,7 +107,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserDeleteResponse deleteByUid(UserDeleteRequest request) {
         UserDeleteResponse response = new UserDeleteResponse();
 
-//        response.setSuccess(userInfoDao.deleteByUid(request.getUid()) > 0);
+//        response.setSuccess(userInfoMapper.deleteByUid(request.getUid()) > 0);
 
         return response;
     }

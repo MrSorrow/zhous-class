@@ -19,9 +19,8 @@ import java.util.Date;
  */
 @Data
 @TableName("user_info")
-@EqualsAndHashCode(callSuper = false)
-public class UserInfoDO implements Serializable {
-
+@EqualsAndHashCode(callSuper = true)
+public class UserInfoDO extends BaseDO {
 
     /**
      * 主键
@@ -57,7 +56,7 @@ public class UserInfoDO implements Serializable {
     /**
      * 角色
      */
-    private Integer role;
+    private String roles;
 
     /**
      * 手机号
@@ -78,21 +77,5 @@ public class UserInfoDO implements Serializable {
      * 扩展信息
      */
     private String ext;
-
-    /**
-     * 乐观锁
-     */
-    private Long version;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
 
 }

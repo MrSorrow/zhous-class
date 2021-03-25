@@ -21,7 +21,7 @@ public class UserQueryRequest extends BaseRequest {
     private Long uid;
     private String wechatName;
     private String nickName;
-    private Integer role;
+    private String roles;
     private String phone;
     private String classes;
 }

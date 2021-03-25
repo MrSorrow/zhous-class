@@ -11,6 +11,6 @@ import si.qi.clazz.domain.db.model.UserInfoDO;
  * @author bbgg
  * @since 2021-03-16
  */
-public interface UserInfoDao extends BaseMapper<UserInfoDO> {
+public interface UserInfoMapper extends BaseMapper<UserInfoDO> {
 
 }
