@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: guoping
@@ -21,10 +22,10 @@ public class UserInfoBO {
     private String avatar;
     private String wechatName;
     private String nickName;
-    private Integer role;
+    private List<Integer> roles;
     private String phone;
     private String password;
-    private String classes;
+    private List<Integer> classes;
     private String ext;
     private Date createTime;
     private Date updateTime;

@@ -26,5 +26,5 @@ public class UserUpdateRequest extends BaseRequest {
     private String phone;
     private String password;
     private List<Integer> classes;
-    private Integer role;
+    private List<Integer> roles;
 }

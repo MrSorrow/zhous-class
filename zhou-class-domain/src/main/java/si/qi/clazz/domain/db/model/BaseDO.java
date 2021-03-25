@@ -1,6 +1,7 @@
 package si.qi.clazz.domain.db.model;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,7 @@ public class BaseDO implements Serializable {
     /**
      * 乐观锁
      */
+    @Version
     private Long version;
 
     /**

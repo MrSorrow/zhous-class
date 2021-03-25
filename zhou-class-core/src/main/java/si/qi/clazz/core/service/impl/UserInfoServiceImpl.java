@@ -68,11 +68,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoBO userInfo = new UserInfoBO();
         // TODO：可以把一些特殊逻辑放在convert中
         userInfo.setUid(RandomUtil.randomLong());
-        userInfo.setClasses(JSONUtil.toJsonStr(Lists.newArrayList(request.getClasses())));
+        userInfo.setClasses(request.getClasses());
         userInfo.setPhone(request.getPhone());
         userInfo.setPassword(request.getPassword());
         userInfo.setNickName(request.getNickName());
-        userInfo.setRole(ConsoleRoleEnum.VISITOR.getCode());
+        userInfo.setRoles(Lists.newArrayList(ConsoleRoleEnum.VISITOR.getCode()));
 
         // 转do
         userInfoMapper.insert(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
@@ -89,11 +89,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoBO userInfo = new UserInfoBO();
         // TODO：
         userInfo.setUid(request.getUid());
-        userInfo.setClasses(JSONUtil.toJsonStr(Lists.newArrayList(request.getClasses())));
+        userInfo.setClasses(request.getClasses());
         userInfo.setPhone(request.getPhone());
         userInfo.setPassword(request.getPassword());
         userInfo.setNickName(request.getNickName());
-        userInfo.setRole(ConsoleRoleEnum.getByCode(request.getRole()).getCode());
+        userInfo.setRoles(request.getRoles());
 
         // 转do
 //        userInfoMapper.update(UserInfoBoConverter.INSTANCE.cvt2Do(userInfo));
